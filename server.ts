@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import productRoutes from './src/routes/productRoutes';
+import userRoutes from './src/routes/userRoutes';
+import cartRoutes from './src/routes/cartRoutes';
 import { connectDB } from './src/database';
 import { errorHandler } from './src/midllewares/errorHandler';
 
@@ -15,6 +17,8 @@ app.use(express.json());
 
 // rotas
 app.use('/products', productRoutes);
+app.use('/users', userRoutes);
+app.use('/carts', cartRoutes);
 
 // rota health
 app.get('/', (_req, res) => res.send('Atelier API'));

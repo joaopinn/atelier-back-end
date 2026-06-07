@@ -26,8 +26,11 @@ export class ProductController {
 
 	async buscarPorID(req: Request, res: Response) {
 		try {
-			const { id } = req.params;
-			const produto = await productService.buscarPorID(id);
+			const idParam = req.params.id;
+			if (!idParam || Array.isArray(idParam)) {
+				return res.status(400).json({ error: 'ID inválido' });
+			}
+			const produto = await productService.buscarPorID(idParam);
 			return res.status(200).json(produto);
 		} catch (error: any) {
 			const msg = error.message || 'Erro ao buscar produto';
@@ -38,8 +41,11 @@ export class ProductController {
 
 	async buscarPorNome(req: Request, res: Response) {
 		try {
-			const { nome } = req.params;
-			const produto = await productService.buscarPorNome(nome);
+			const nomeParam = req.params.nome;
+			if (!nomeParam || Array.isArray(nomeParam)) {
+				return res.status(400).json({ error: 'Nome inválido' });
+			}
+			const produto = await productService.buscarPorNome(nomeParam);
 			return res.status(200).json(produto);
 		} catch (error: any) {
 			const msg = error.message || 'Erro ao buscar produto por nome';
@@ -50,8 +56,11 @@ export class ProductController {
 
 	async buscarPorTamanho(req: Request, res: Response) {
 		try {
-			const { tamanho } = req.params;
-			const produtos = await productService.buscarPorTamanho(tamanho);
+			const tamanhoParam = req.params.tamanho;
+			if (!tamanhoParam || Array.isArray(tamanhoParam)) {
+				return res.status(400).json({ error: 'Tamanho inválido' });
+			}
+			const produtos = await productService.buscarPorTamanho(tamanhoParam);
 			return res.status(200).json(produtos);
 		} catch (error: any) {
 			const msg = error.message || 'Erro ao buscar produto por tamanho';
@@ -62,8 +71,11 @@ export class ProductController {
 
 	async atualizarProduto(req: Request, res: Response) {
 		try {
-			const { id } = req.params;
-			const atualizado = await productService.atualizarProduto(id, req.body);
+			const idParam = req.params.id;
+			if (!idParam || Array.isArray(idParam)) {
+				return res.status(400).json({ error: 'ID inválido' });
+			}
+			const atualizado = await productService.atualizarProduto(idParam, req.body);
 			return res.status(200).json(atualizado);
 		} catch (error: any) {
 			const msg = error.message || 'Erro ao atualizar produto';
@@ -74,8 +86,11 @@ export class ProductController {
 
 	async deletarProduto(req: Request, res: Response) {
 		try {
-			const { id } = req.params;
-			const deletado = await productService.deletarProduto(id);
+			const idParam = req.params.id;
+			if (!idParam || Array.isArray(idParam)) {
+				return res.status(400).json({ error: 'ID inválido' });
+			}
+			const deletado = await productService.deletarProduto(idParam);
 			return res.status(200).json(deletado);
 		} catch (error: any) {
 			const msg = error.message || 'Erro ao deletar produto';
