@@ -23,13 +23,15 @@ export class CartService {
 
     // verificar se produto já existe no carrinho (mesmo produto e tamanho)
     const existing = cart.items.find(
-      (i) => i.product.toString() === data.productId && (i.tamanho || '') === (data.tamanho || '')
+      (i: any) => i.product.toString() === data.productId && (i.tamanho || '') === (data.tamanho || '')
     );
 
     if (existing) {
       existing.quantidade += data.quantidade || 1;
     } else {
-      cart.items.push({ product: new Types.ObjectId(data.productId), quantidade: data.quantidade || 1, tamanho: data.tamanho });
+      const newItem: any = { product: new Types.ObjectId(data.productId), quantidade: data.quantidade || 1 };
+      if (data.tamanho) newItem.tamanho = data.tamanho;
+      cart.items.push(newItem);
     }
 
     await cart.save();
@@ -40,7 +42,7 @@ export class CartService {
     const cart = await CartModel.findOne({ user: new Types.ObjectId(userId) });
     if (!cart) throw new Error('Carrinho não encontrado');
 
-    cart.items = cart.items.filter((i) => !(i.product.toString() === productId && (tamanho || '') === (i.tamanho || '')));
+    cart.items = cart.items.filter((i: any) => !(i.product.toString() === productId && (tamanho || '') === (i.tamanho || '')));
     await cart.save();
     return cart;
   }

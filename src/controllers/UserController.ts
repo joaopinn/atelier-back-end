@@ -22,7 +22,8 @@ class UserController {
 
   async buscarPorID(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
+      if (!id || Array.isArray(id)) return res.status(400).json({ error: 'ID inválido' });
       const user = await UserService.buscarPorID(id);
       return res.status(200).json(user);
     } catch (error: any) {
@@ -32,7 +33,8 @@ class UserController {
 
   async atualizarUsuario(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
+      if (!id || Array.isArray(id)) return res.status(400).json({ error: 'ID inválido' });
       const atualizado = await UserService.atualizarUsuario(id, req.body);
       return res.status(200).json(atualizado);
     } catch (error: any) {
@@ -42,7 +44,8 @@ class UserController {
 
   async deletarUsuario(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
+      if (!id || Array.isArray(id)) return res.status(400).json({ error: 'ID inválido' });
       const deletado = await UserService.deletarUsuario(id);
       return res.status(200).json(deletado);
     } catch (error: any) {
