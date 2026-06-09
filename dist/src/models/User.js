@@ -5,7 +5,8 @@ const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.Schema({
     nome: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    senha: { type: String, required: true }
+    senha: { type: String, required: true },
+    role: { type: String, enum: ['admin', 'customer'], default: 'customer' } // Padrão é cliente
 });
 exports.UserModel = (0, mongoose_1.model)('User', userSchema);
 //# sourceMappingURL=User.js.map

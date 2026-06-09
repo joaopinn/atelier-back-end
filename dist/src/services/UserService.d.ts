@@ -3,14 +3,30 @@ interface CriarUserDTO {
     nome: string;
     email: string;
     senha: string;
+    role?: 'admin' | 'customer';
 }
 export declare class UserService {
-    criarUsuario(data: CriarUserDTO): Promise<UserType>;
+    private jwtSecret;
+    criarUsuario(data: CriarUserDTO): Promise<UserType & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    login(email: string, senhaAberta: string): Promise<{
+        token: string;
+        user: {
+            id: import("mongoose").Types.ObjectId;
+            nome: string;
+            email: string;
+            role: "admin" | "customer";
+        };
+    }>;
     listarUsuarios(): Promise<UserType[]>;
     buscarPorID(id: string): Promise<UserType>;
-    buscarPorEmail(email: string): Promise<UserType | null>;
     atualizarUsuario(id: string, dados: Partial<UserType>): Promise<UserType | null>;
-    deletarUsuario(id: string): Promise<UserType>;
+    deletarUsuario(id: string): Promise<{
+        mensagem: string;
+    }>;
 }
 declare const _default: UserService;
 export default _default;

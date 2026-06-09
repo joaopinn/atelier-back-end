@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const UserController_1 = __importDefault(require("../controllers/UserController"));
 const router = (0, express_1.Router)();
+// Nova rota de Login
+router.post('/login', (req, res) => UserController_1.default.login(req, res));
+// Rotas existentes
 router.post('/', (req, res) => UserController_1.default.criarUsuario(req, res));
 router.get('/', (req, res) => UserController_1.default.listarUsuarios(req, res));
 router.get('/:id', (req, res) => UserController_1.default.buscarPorID(req, res));

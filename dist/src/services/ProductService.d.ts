@@ -1,9 +1,11 @@
 import type { ProductType } from '../models/Product';
 interface CriarProdutoDTO {
-    nomeDoProduto: string;
-    preco: number;
-    tamanho: string[];
-    estoque: number;
+    name: string;
+    price: number;
+    category: string;
+    image: string;
+    stock: number;
+    sizes: string[];
 }
 export declare class ProductService {
     criarProduto(data: CriarProdutoDTO): Promise<ProductType>;

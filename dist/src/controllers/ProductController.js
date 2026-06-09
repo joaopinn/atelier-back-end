@@ -5,11 +5,15 @@ const ProductService_1 = require("../services/ProductService");
 const productService = new ProductService_1.ProductService();
 class ProductController {
     async criarProduto(req, res) {
+        console.log("--- CHEGOU NO BACK-END ---");
+        console.log("Body recebido:", req.body);
         try {
             const novo = await productService.criarProduto(req.body);
             return res.status(201).json(novo);
         }
         catch (error) {
+            console.error("--- ERRO CAPTURADO NO CONTROLLER ---");
+            console.error(error); // Isso vai forçar o erro a aparecer no terminal
             const msg = error.message || 'Erro ao criar produto';
             const status = /preço|estoque|válid/i.test(msg) ? 400 : 500;
             return res.status(status).json({ error: msg });
