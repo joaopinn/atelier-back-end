@@ -5,11 +5,17 @@ const productService = new ProductService();
 
 export class ProductController {
 	async criarProduto(req: Request, res: Response) {
-		try {
-			const novo = await productService.criarProduto(req.body);
-			return res.status(201).json(novo);
-		} catch (error: any) {
-			const msg = error.message || 'Erro ao criar produto';
+        console.log("--- CHEGOU NO BACK-END ---");
+        console.log("Body recebido:", req.body);
+        
+        try {
+            const novo = await productService.criarProduto(req.body);
+            return res.status(201).json(novo);
+        } catch (error: any) {
+            console.error("--- ERRO CAPTURADO NO CONTROLLER ---");
+            console.error(error); // Isso vai forçar o erro a aparecer no terminal
+            
+            const msg = error.message || 'Erro ao criar produto';
 			const status = /preço|estoque|válid/i.test(msg) ? 400 : 500;
 			return res.status(status).json({ error: msg });
 		}
