@@ -52,6 +52,20 @@ class UserController {
       return res.status(400).json({ error: error.message });
     }
   }
+  
+  async login(req: Request, res: Response) {
+    try {
+      const { email, senha } = req.body;
+      if (!email || !senha) {
+        return res.status(400).json({ error: 'Email e senha são obrigatórios' });
+      }
+      const dadosLogin = await UserService.login(email, senha);
+      return res.status(200).json(dadosLogin);
+    } catch (error: any) {
+      // Retornar 401 (Unauthorized) para falhas de login
+      return res.status(401).json({ error: error.message });
+    }
+  }
 }
 
 export default new UserController();
