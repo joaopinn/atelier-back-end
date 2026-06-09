@@ -6,6 +6,7 @@ declare class UserController {
     atualizarUsuario(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     deletarUsuario(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     login(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
+    atualizarSenha(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }
 declare const _default: UserController;
 export default _default;

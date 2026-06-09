@@ -27,6 +27,9 @@ export declare class UserService {
     deletarUsuario(id: string): Promise<{
         mensagem: string;
     }>;
+    atualizarSenha(id: string, senhaAtual: string, novaSenha: string): Promise<{
+        message: string;
+    }>;
 }
 declare const _default: UserService;
 export default _default;

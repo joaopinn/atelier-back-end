@@ -8,6 +8,7 @@ const UserController_1 = __importDefault(require("../controllers/UserController"
 const router = (0, express_1.Router)();
 // Nova rota de Login
 router.post('/login', (req, res) => UserController_1.default.login(req, res));
+router.put('/:id/password', (req, res) => UserController_1.default.atualizarSenha(req, res));
 // Rotas existentes
 router.post('/', (req, res) => UserController_1.default.criarUsuario(req, res));
 router.get('/', (req, res) => UserController_1.default.listarUsuarios(req, res));

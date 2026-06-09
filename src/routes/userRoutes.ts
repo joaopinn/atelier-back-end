@@ -5,7 +5,7 @@ const router = Router();
 
 // Nova rota de Login
 router.post('/login', (req, res) => userController.login(req, res));
-
+router.put('/:id/password', (req, res) => userController.atualizarSenha(req, res));
 // Rotas existentes
 router.post('/', (req, res) => userController.criarUsuario(req, res));
 router.get('/', (req, res) => userController.listarUsuarios(req, res));

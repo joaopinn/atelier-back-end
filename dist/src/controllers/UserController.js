@@ -73,6 +73,24 @@ class UserController {
             return res.status(401).json({ error: error.message });
         }
     }
+    // Adicione dentro do seu UserController
+    async atualizarSenha(req, res) {
+        try {
+            const { id } = req.params;
+            const { senhaAtual, novaSenha } = req.body;
+            if (!id || Array.isArray(id)) {
+                return res.status(400).json({ error: 'ID inválido' });
+            }
+            if (!senhaAtual || !novaSenha) {
+                return res.status(400).json({ error: "Preencha a senha atual e a nova senha." });
+            }
+            const resultado = await UserService_1.default.atualizarSenha(id, senhaAtual, novaSenha);
+            return res.status(200).json(resultado);
+        }
+        catch (error) {
+            return res.status(400).json({ error: error.message });
+        }
+    }
 }
 exports.default = new UserController();
 //# sourceMappingURL=UserController.js.map

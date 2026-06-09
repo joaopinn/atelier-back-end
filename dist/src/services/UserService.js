@@ -107,6 +107,24 @@ class UserService {
             throw new Error('Erro ao deletar usuário');
         }
     }
+    async atualizarSenha(id, senhaAtual, novaSenha) {
+        const usuario = await User_1.UserModel.findById(id);
+        if (!usuario) {
+            throw new Error("Usuário não encontrado");
+        }
+        // 1. Verifica se a senha atual digitada bate com o hash do banco
+        const senhaCorreta = await bcryptjs_1.default.compare(senhaAtual, usuario.senha);
+        if (!senhaCorreta) {
+            throw new Error("A senha atual está incorreta.");
+        }
+        // 2. Cria o Hash para a NOVA senha
+        const salt = await bcryptjs_1.default.genSalt(10);
+        const novoHash = await bcryptjs_1.default.hash(novaSenha, salt);
+        // 3. Atualiza no banco
+        usuario.senha = novoHash;
+        await usuario.save();
+        return { message: "Senha atualizada com sucesso!" };
+    }
 }
 exports.UserService = UserService;
 exports.default = new UserService();
